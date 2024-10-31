@@ -1,72 +1,98 @@
 import { helpCommand } from './builtins'
-import type {
-  Harmonix,
-  HarmonixButton,
-  HarmonixCommand,
-  HarmonixContextMenu,
-  HarmonixEvent,
-  HarmonixModal,
-  HarmonixPrecondition,
-  HarmonixSelectMenu
-} from './types'
+import {
+  resolveButton,
+  resolveCommand,
+  resolveContextMenu,
+  resolveEvent,
+  resolveModal,
+  resolvePrecondition,
+  resolveSelectMenu
+} from './resolve'
+import type { Harmonix, HarmonixCommand } from './types'
 
-export const loadEvents = (harmonix: Harmonix, events: HarmonixEvent[]) => {
+export const installEvents = async (harmonix: Harmonix) => {
+  const _events = [...(harmonix.options.events || [])]
+  const events = await Promise.all(
+    _events.map((evt) => resolveEvent(evt, harmonix.options))
+  )
+
   for (const evt of events) {
     if (evt.config.order) {
-      harmonix.events.set(`${evt.config.order}.${evt.config.name!}`, evt)
+      harmonix.client?.events.set(
+        `${evt.config.order}.${evt.config.name!}`,
+        evt
+      )
     } else {
-      harmonix.events.set(evt.config.name!, evt)
+      harmonix.client?.events.set(evt.config.name!, evt)
     }
   }
 }
 
-export const loadCommands = (
-  harmonix: Harmonix,
-  commands: HarmonixCommand[]
-) => {
+export const installCommands = async (harmonix: Harmonix) => {
+  const _commands = [...(harmonix.options.commands || [])]
+  const commands = await Promise.all(
+    _commands.map((cmd) => resolveCommand(cmd, harmonix.options))
+  )
+
   for (const cmd of commands) {
-    harmonix.commands.set(cmd.config.name!, cmd)
+    harmonix.client?.commands.set(cmd.config.name!, cmd)
   }
-  if (!harmonix.commands.has('help')) {
-    harmonix.commands.set('help', helpCommand as HarmonixCommand<any>)
+  if (!harmonix.client?.commands.has('help')) {
+    harmonix.client?.commands.set('help', helpCommand as HarmonixCommand<any>)
   }
 }
 
-export const loadContextMenus = (
-  harmonix: Harmonix,
-  contextMenus: HarmonixContextMenu[]
-) => {
+export const installContextMenus = async (harmonix: Harmonix) => {
+  const _contextMenus = [...(harmonix.options.contextMenus || [])]
+  const contextMenus = await Promise.all(
+    _contextMenus.map((ctm) => resolveContextMenu(ctm, harmonix.options))
+  )
+
   for (const ctm of contextMenus) {
-    harmonix.contextMenus.set(ctm.config.name!, ctm)
+    harmonix.client?.contextMenus.set(ctm.config.name!, ctm)
   }
 }
 
-export const loadButtons = (harmonix: Harmonix, buttons: HarmonixButton[]) => {
+export const installButtons = async (harmonix: Harmonix) => {
+  const _buttons = [...(harmonix.options.components?.buttons || [])]
+  const buttons = await Promise.all(
+    _buttons.map((btn) => resolveButton(btn, harmonix.options))
+  )
+
   for (const btn of buttons) {
-    harmonix.components.buttons.set(btn.config.id!, btn)
+    harmonix.client?.components.buttons.set(btn.config.id!, btn)
   }
 }
 
-export const loadModals = (harmonix: Harmonix, modals: HarmonixModal[]) => {
+export const installModals = async (harmonix: Harmonix) => {
+  const _modals = [...(harmonix.options.components?.modals || [])]
+  const modals = await Promise.all(
+    _modals.map((mdl) => resolveModal(mdl, harmonix.options))
+  )
+
   for (const mdl of modals) {
-    harmonix.components.modals.set(mdl.config.id!, mdl)
+    harmonix.client?.components.modals.set(mdl.config.id!, mdl)
   }
 }
 
-export const loadSelectMenus = (
-  harmonix: Harmonix,
-  selectMenus: HarmonixSelectMenu[]
-) => {
+export const installSelectMenus = async (harmonix: Harmonix) => {
+  const _selectMenus = [...(harmonix.options.components?.selectMenus || [])]
+  const selectMenus = await Promise.all(
+    _selectMenus.map((slm) => resolveSelectMenu(slm, harmonix.options))
+  )
+
   for (const slm of selectMenus) {
-    harmonix.components.selectMenus.set(slm.config.id!, slm)
+    harmonix.client?.components.selectMenus.set(slm.config.id!, slm)
   }
 }
 
-export const loadPreconditions = (
-  harmonix: Harmonix,
-  preconditions: HarmonixPrecondition[]
-) => {
+export const installPreconditions = async (harmonix: Harmonix) => {
+  const _preconditions = [...(harmonix.options.preconditions || [])]
+  const preconditions = await Promise.all(
+    _preconditions.map((prc) => resolvePrecondition(prc, harmonix.options))
+  )
+
   for (const prc of preconditions) {
-    harmonix.preconditions.set(prc.name!, prc)
+    harmonix.client?.preconditions.set(prc.name!, prc)
   }
 }

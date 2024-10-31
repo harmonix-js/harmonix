@@ -1,4 +1,3 @@
-import { Collection } from 'discord.js'
 import type { LoadConfigOptions } from 'c12'
 import { getContext } from 'unctx'
 import consola from 'consola'
@@ -8,23 +7,15 @@ import { resolve } from 'pathe'
 import { debounce } from 'perfect-debounce'
 import type { Stats } from 'node:fs'
 import { loadOptions } from './options'
+import { scanAndSyncOptions } from './scan'
 import {
-  scanButtons,
-  scanCommands,
-  scanContextMenus,
-  scanEvents,
-  scanModals,
-  scanPreconditions,
-  scanSelectMenus
-} from './scan'
-import {
-  loadButtons,
-  loadCommands,
-  loadContextMenus,
-  loadEvents,
-  loadModals,
-  loadPreconditions,
-  loadSelectMenus
+  installButtons,
+  installCommands,
+  installContextMenus,
+  installEvents,
+  installModals,
+  installPreconditions,
+  installSelectMenus
 } from './load'
 import { initCient, refreshApplicationCommands } from './discord'
 import {
@@ -36,45 +27,33 @@ import {
   registerSelectMenus,
   registerAutocomplete
 } from './register'
-import {
-  resolveButton,
-  resolveCommand,
-  resolveContextMenu,
-  resolveEvent,
-  resolveModal,
-  resolvePrecondition,
-  resolveSelectMenu
-} from './resolve'
 import type {
   Harmonix,
   HarmonixConfig,
-  HarmonixOptions,
-  RuntimeHarmonix
+  RuntimeHarmonix,
+  HarmonixHooks
 } from './types'
 import { version } from '../package.json'
+import { createHooks } from 'hookable'
 
 export const ctx = getContext<RuntimeHarmonix>('harmonix')
 export const useHarmonix = ctx.use
 
-const initHarmonix = async (
+const createHarmonix = async (
   config: HarmonixConfig,
   options: LoadConfigOptions
 ): Promise<Harmonix> => {
   const opts = await loadOptions(config, options)
-
-  return {
-    configFile: opts.configFile as string,
-    options: opts.options as HarmonixOptions,
-    events: new Collection(),
-    commands: new Collection(),
-    contextMenus: new Collection(),
-    components: {
-      buttons: new Collection(),
-      modals: new Collection(),
-      selectMenus: new Collection()
-    },
-    preconditions: new Collection()
+  const harmonix: Harmonix = {
+    options: opts,
+    hooks: createHooks<HarmonixHooks>(),
+    logger: consola.withTag('harmonix')
   }
+
+  await scanAndSyncOptions(harmonix)
+  harmonix.hooks.addHooks(harmonix.options.hooks)
+
+  return harmonix
 }
 
 const watchReload = (
@@ -91,7 +70,7 @@ const watchReload = (
     harmonix.options.dirs.components.selectMenus,
     harmonix.options.dirs.preconditions
   ].map((file) => resolve(harmonix.options.rootDir, file))
-  const watcher = watch([...filesToWatch, harmonix.configFile], {
+  const watcher = watch([...filesToWatch, harmonix.options._c12.configFile!], {
     ignored: harmonix.options.ignore,
     ignoreInitial: true
   })
@@ -104,7 +83,7 @@ const watchReload = (
       )
       clearHarmonix(harmonix)
       try {
-        await loadHarmonix(harmonix, config, opts)
+        await loadHarmonix(harmonix)
       } catch (error: any) {
         createError(error.message)
       }
@@ -115,7 +94,7 @@ const watchReload = (
   watcher.on('all', (event, path, stats) => reload(event, path, stats))
 }
 
-export const createHarmonix = async (
+export const initHarmonix = async (
   config: HarmonixConfig = {},
   opts: LoadConfigOptions = {}
 ) => {
@@ -124,10 +103,11 @@ export const createHarmonix = async (
       'Client token is required. Please provide it in the environment variable DISCORD_CLIENT_TOKEN.'
     )
   }
-  const harmonix = await initHarmonix(config, opts)
+  const harmonix = await createHarmonix(config, opts)
 
-  consola.log(colors.blue(`Harmonix ${colors.bold(version)}\n`))
-  await loadHarmonix(harmonix, config, opts)
+  harmonix.logger.log(colors.blue(`Harmonix ${colors.bold(version)}\n`))
+  await loadHarmonix(harmonix)
+
   if (process.env.NODE_ENV === 'development') {
     watchReload(harmonix, config, opts)
   }
@@ -137,78 +117,33 @@ export const createHarmonix = async (
 
 const clearHarmonix = async (harmonix: Harmonix) => {
   harmonix.client?.destroy()
-  harmonix.events.clear()
-  harmonix.commands.clear()
-  harmonix.contextMenus.clear()
-  harmonix.components.buttons.clear()
-  harmonix.components.modals.clear()
-  harmonix.components.selectMenus.clear()
-  harmonix.preconditions.clear()
+  harmonix.client?.events.clear()
+  harmonix.client?.commands.clear()
+  harmonix.client?.contextMenus.clear()
+  harmonix.client?.components.buttons.clear()
+  harmonix.client?.components.modals.clear()
+  harmonix.client?.components.selectMenus.clear()
+  harmonix.client?.preconditions.clear()
 }
 
-const loadHarmonix = async (
-  harmonix: Harmonix,
-  config: HarmonixConfig,
-  options: LoadConfigOptions
-) => {
-  const opts = await loadOptions(config, options)
+const isRuntimeHarmonix = (harmonix: Harmonix): harmonix is RuntimeHarmonix => {
+  return 'client' in harmonix
+}
 
-  harmonix.configFile = opts.configFile as string
-  harmonix.options = opts.options as HarmonixOptions
-  const [
-    scannedEvents,
-    scannedCommands,
-    scannedContextMenus,
-    scannedButtons,
-    scannedModals,
-    scannedSelectMenus,
-    scannedPreconditions
-  ] = await Promise.all([
-    scanEvents(harmonix),
-    scanCommands(harmonix),
-    scanContextMenus(harmonix),
-    scanButtons(harmonix),
-    scanModals(harmonix),
-    scanSelectMenus(harmonix),
-    scanPreconditions(harmonix)
-  ])
-  const events = [...(harmonix.options.events || []), ...scannedEvents].map(
-    (evt) => resolveEvent(evt, harmonix.options)
-  )
-  const commands = [
-    ...(harmonix.options.commands || []),
-    ...scannedCommands
-  ].map((cmd) => resolveCommand(cmd, harmonix.options))
-  const contextMenus = [
-    ...(harmonix.options.contextMenus || []),
-    ...scannedContextMenus
-  ].map((ctm) => resolveContextMenu(ctm, harmonix.options))
-  const buttons = [
-    ...(harmonix.options.components?.buttons || []),
-    ...scannedButtons
-  ].map((btn) => resolveButton(btn, harmonix.options))
-  const modals = [
-    ...(harmonix.options.components?.modals || []),
-    ...scannedModals
-  ].map((mdl) => resolveModal(mdl, harmonix.options))
-  const selectMenus = [
-    ...(harmonix.options.components?.selectMenus || []),
-    ...scannedSelectMenus
-  ].map((slm) => resolveSelectMenu(slm, harmonix.options))
-  const preconditions = [
-    ...(harmonix.options.preconditions || []),
-    ...scannedPreconditions
-  ].map((prc) => resolvePrecondition(prc, harmonix.options))
-
-  loadEvents(harmonix, events)
-  loadCommands(harmonix, commands)
-  loadContextMenus(harmonix, contextMenus)
-  loadButtons(harmonix, buttons)
-  loadModals(harmonix, modals)
-  loadSelectMenus(harmonix, selectMenus)
-  loadPreconditions(harmonix, preconditions)
-
+const loadHarmonix = async (harmonix: Harmonix) => {
   harmonix.client = initCient(harmonix.options)
+
+  if (!isRuntimeHarmonix(harmonix)) {
+    return createError('Error while initializing client')
+  }
+
+  installEvents(harmonix)
+  installCommands(harmonix)
+  installContextMenus(harmonix)
+  installPreconditions(harmonix)
+  installButtons(harmonix)
+  installModals(harmonix)
+  installSelectMenus(harmonix)
 
   registerEvents(harmonix)
   await refreshApplicationCommands(harmonix)

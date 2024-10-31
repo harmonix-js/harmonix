@@ -35,8 +35,8 @@ export const helpCommand = defineCommand(
       }
     },
     autocomplete(interaction) {
-      const { commands } = useHarmonix()
-      const options = commands.map((cmd) => ({
+      const { client } = useHarmonix()
+      const options = client.commands.map((cmd) => ({
         name: cmd.config.name!,
         value: cmd.config.name!
       }))
@@ -46,11 +46,11 @@ export const helpCommand = defineCommand(
   },
   async (interaction, ctx) => {
     const { command } = ctx.options
-    const { client, commands } = useHarmonix()
+    const { client } = useHarmonix()
 
     if (!command) {
       const groupedCommands = groupCommandsByCategory(
-        commands.map((cmd) => cmd.config)
+        client.commands.map((cmd) => cmd.config)
       )
       const description = Object.entries(groupedCommands)
         .map(
@@ -67,7 +67,7 @@ export const helpCommand = defineCommand(
 
       return interaction.reply({ embeds: [embed] })
     } else {
-      const cmd = commands.get(command)
+      const cmd = client.commands.get(command)
 
       if (!cmd) {
         return interaction.reply(`Command ${command} not found.`)

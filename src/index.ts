@@ -1,3 +1,3 @@
 export * from './define'
 export * from './uses'
-export { createHarmonix, createError, useHarmonix } from './harmonix'
+export { initHarmonix, createError, useHarmonix } from './harmonix'

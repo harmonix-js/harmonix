@@ -1,13 +1,12 @@
-import { APIApplicationCommand, Client, REST, Routes } from 'discord.js'
-import consola from 'consola'
-import type { Harmonix, RuntimeHarmonix } from './types'
+import { APIApplicationCommand, REST, Routes } from 'discord.js'
+import { Harmonix, HarmonixClient, RuntimeHarmonix } from './types'
 import 'dotenv/config'
 import { createError, ctx } from './harmonix'
 import { toJSON } from './utils'
 
 export const initCient = (harmonixOptions: Harmonix['options']) => {
   try {
-    const client = new Client(harmonixOptions.client)
+    const client = new HarmonixClient(harmonixOptions.client)
 
     client.login(process.env.DISCORD_CLIENT_TOKEN)
 
@@ -17,16 +16,16 @@ export const initCient = (harmonixOptions: Harmonix['options']) => {
   }
 }
 
-export const refreshApplicationCommands = async (harmonix: Harmonix) => {
-  const commands = [
-    ...harmonix.commands.map((cmd) => cmd),
-    ...harmonix.contextMenus.map((cmd) => cmd)
-  ]
+export const refreshApplicationCommands = async (harmonix: RuntimeHarmonix) => {
   const rest = new REST().setToken(process.env.DISCORD_CLIENT_TOKEN!)
 
-  harmonix.client?.once('ready', async (client) => {
+  harmonix.client.once('ready', async (client) => {
     try {
-      consola.info('Started refreshing application commands.')
+      const commands = [
+        ...harmonix.client.commands.values(),
+        ...harmonix.client.contextMenus.values()
+      ]
+      harmonix.logger.info('Started refreshing application commands.')
       const apiCommands = (await rest.put(
         Routes.applicationCommands(harmonix.options.clientId || client.user.id),
         {
@@ -34,18 +33,20 @@ export const refreshApplicationCommands = async (harmonix: Harmonix) => {
         }
       )) as APIApplicationCommand[]
 
-      consola.info('Syncing commands with API.')
+      harmonix.logger.info('Syncing commands with API.')
       for (const cmd of commands) {
         const command = apiCommands.find((c) => c.name === cmd.config.name)
 
         if (!command) {
-          consola.warn(`Command \`${cmd.config.name}\` not found in API.`)
+          harmonix.logger.warn(
+            `Command \`${cmd.config.name}\` not found in API.`
+          )
           continue
         }
         cmd.config.id = command.id
       }
-      consola.success('Successfully loaded application commands.\n')
-      const readyEvents = harmonix.events.filter(
+      harmonix.logger.success('Successfully loaded application commands.\n')
+      const readyEvents = harmonix.client.events.filter(
         (event) => event.config.name === 'ready'
       )
 

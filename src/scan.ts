@@ -4,25 +4,85 @@ import type { Harmonix } from './types'
 
 const GLOB_SCAN_PATTERN = '**/*.{js,ts}'
 
-export const scanEvents = async (harmonix: Harmonix) => {
+export const scanAndSyncOptions = async (harmonix: Harmonix) => {
+  const scannedEvents = await scanEvents(harmonix)
+  harmonix.options.events = harmonix.options.events || []
+  for (const evtPath of scannedEvents) {
+    if (!harmonix.options.events.includes(evtPath)) {
+      harmonix.options.events.push(evtPath)
+    }
+  }
+
+  const scannedCommands = await scanCommands(harmonix)
+  harmonix.options.commands = harmonix.options.commands || []
+  for (const cmdPath of scannedCommands) {
+    if (!harmonix.options.commands.includes(cmdPath)) {
+      harmonix.options.commands.push(cmdPath)
+    }
+  }
+
+  const scannedContextMenus = await scanContextMenus(harmonix)
+  harmonix.options.contextMenus = harmonix.options.contextMenus || []
+  for (const ctmPath of scannedContextMenus) {
+    if (!harmonix.options.contextMenus.includes(ctmPath)) {
+      harmonix.options.contextMenus.push(ctmPath)
+    }
+  }
+
+  const scannedButtons = await scanButtons(harmonix)
+  harmonix.options.components.buttons =
+    harmonix.options.components.buttons || []
+  for (const btnPath of scannedButtons) {
+    if (!harmonix.options.components.buttons.includes(btnPath)) {
+      harmonix.options.components.buttons.push(btnPath)
+    }
+  }
+
+  const scannedModals = await scanModals(harmonix)
+  harmonix.options.components.modals = harmonix.options.components.modals || []
+  for (const mdlPath of scannedModals) {
+    if (!harmonix.options.components.modals.includes(mdlPath)) {
+      harmonix.options.components.modals.push(mdlPath)
+    }
+  }
+
+  const scannedSelectMenus = await scanSelectMenus(harmonix)
+  harmonix.options.components.selectMenus =
+    harmonix.options.components.selectMenus || []
+  for (const smPath of scannedSelectMenus) {
+    if (!harmonix.options.components.selectMenus.includes(smPath)) {
+      harmonix.options.components.selectMenus.push(smPath)
+    }
+  }
+
+  const scannedPreconditions = await scanPreconditions(harmonix)
+  harmonix.options.preconditions = harmonix.options.preconditions || []
+  for (const prePath of scannedPreconditions) {
+    if (!harmonix.options.preconditions.includes(prePath)) {
+      harmonix.options.preconditions.push(prePath)
+    }
+  }
+}
+
+const scanEvents = async (harmonix: Harmonix) => {
   const files = await scanFiles(harmonix, harmonix.options.dirs.events)
 
   return files.map((f) => f.fullPath)
 }
 
-export const scanCommands = async (harmonix: Harmonix) => {
+const scanCommands = async (harmonix: Harmonix) => {
   const files = await scanFiles(harmonix, harmonix.options.dirs.commands)
 
   return files.map((f) => f.fullPath)
 }
 
-export const scanContextMenus = async (harmonix: Harmonix) => {
+const scanContextMenus = async (harmonix: Harmonix) => {
   const files = await scanFiles(harmonix, harmonix.options.dirs.contextMenus)
 
   return files.map((f) => f.fullPath)
 }
 
-export const scanButtons = async (harmonix: Harmonix) => {
+const scanButtons = async (harmonix: Harmonix) => {
   const buttonsDir = join(
     harmonix.options.dirs.components.dir,
     harmonix.options.dirs.components.buttons
@@ -32,7 +92,7 @@ export const scanButtons = async (harmonix: Harmonix) => {
   return files.map((f) => f.fullPath)
 }
 
-export const scanModals = async (harmonix: Harmonix) => {
+const scanModals = async (harmonix: Harmonix) => {
   const modalsDir = join(
     harmonix.options.dirs.components.dir,
     harmonix.options.dirs.components.modals
@@ -42,7 +102,7 @@ export const scanModals = async (harmonix: Harmonix) => {
   return files.map((f) => f.fullPath)
 }
 
-export const scanSelectMenus = async (harmonix: Harmonix) => {
+const scanSelectMenus = async (harmonix: Harmonix) => {
   const selectMenusDir = join(
     harmonix.options.dirs.components.dir,
     harmonix.options.dirs.components.selectMenus
@@ -52,7 +112,7 @@ export const scanSelectMenus = async (harmonix: Harmonix) => {
   return files.map((f) => f.fullPath)
 }
 
-export const scanPreconditions = async (harmonix: Harmonix) => {
+const scanPreconditions = async (harmonix: Harmonix) => {
   const files = await scanFiles(harmonix, harmonix.options.dirs.preconditions)
 
   return files.map((f) => f.fullPath)

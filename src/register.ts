@@ -6,24 +6,19 @@ import {
 import consola from 'consola'
 import { resolveOption } from './utils'
 import { createError, ctx } from './harmonix'
-import type {
-  Harmonix,
-  ParsedInputs,
-  ParsedOptions,
-  RuntimeHarmonix
-} from './types'
+import type { ParsedInputs, ParsedOptions, RuntimeHarmonix } from './types'
 
-export const registerEvents = (harmonix: Harmonix) => {
-  for (const [, event] of harmonix.events) {
+export const registerEvents = (harmonix: RuntimeHarmonix) => {
+  for (const [, event] of harmonix.client.events) {
     if (event.config.name === 'ready') continue
     if (event.config.once) {
-      harmonix.client?.once(event.config.name!, (...args) => {
+      harmonix.client.once(event.config.name!, (...args) => {
         ctx.call(harmonix as RuntimeHarmonix, () =>
           event.callback(...(args as ClientEvents[keyof ClientEvents]))
         )
       })
     } else {
-      harmonix.client?.on(event.config.name!, (...args) => {
+      harmonix.client.on(event.config.name!, (...args) => {
         ctx.call(harmonix as RuntimeHarmonix, () =>
           event.callback(...(args as ClientEvents[keyof ClientEvents]))
         )
@@ -32,10 +27,10 @@ export const registerEvents = (harmonix: Harmonix) => {
   }
 }
 
-export const registerCommands = (harmonix: Harmonix) => {
-  harmonix.client?.on(Events.InteractionCreate, async (interaction) => {
+export const registerCommands = (harmonix: RuntimeHarmonix) => {
+  harmonix.client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand()) return
-    const cmd = harmonix.commands.get(interaction.commandName)
+    const cmd = harmonix.client.commands.get(interaction.commandName)
     const cmdOptions = Object.entries(cmd?.config.options ?? {}).map(
       ([key, _]) => ({ name: key })
     )
@@ -60,7 +55,7 @@ export const registerCommands = (harmonix: Harmonix) => {
 
     if (cmd.config.preconditions) {
       for (const prc of cmd.config.preconditions) {
-        const precondition = harmonix.preconditions.get(prc)
+        const precondition = harmonix.client.preconditions.get(prc)
 
         if (!precondition) {
           consola.warn(`Precondition \`${prc}\` not found.`)
@@ -80,15 +75,15 @@ export const registerCommands = (harmonix: Harmonix) => {
   })
 }
 
-export const registerContextMenu = (harmonix: Harmonix) => {
-  harmonix.client?.on(Events.InteractionCreate, async (interaction) => {
+export const registerContextMenu = (harmonix: RuntimeHarmonix) => {
+  harmonix.client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isContextMenuCommand()) return
-    const ctm = harmonix.contextMenus.get(interaction.commandName)
+    const ctm = harmonix.client.contextMenus.get(interaction.commandName)
 
     if (!ctm) return
     if (ctm.config.preconditions) {
       for (const prc of ctm.config.preconditions) {
-        const precondition = harmonix.preconditions.get(prc)
+        const precondition = harmonix.client.preconditions.get(prc)
 
         if (!precondition) {
           consola.warn(`Precondition \`${prc}\` not found.`)
@@ -111,20 +106,20 @@ export const registerContextMenu = (harmonix: Harmonix) => {
   })
 }
 
-export const registerButtons = (harmonix: Harmonix) => {
-  harmonix.client?.on(Events.InteractionCreate, (interaction) => {
+export const registerButtons = (harmonix: RuntimeHarmonix) => {
+  harmonix.client.on(Events.InteractionCreate, (interaction) => {
     if (!interaction.isButton()) return
-    const btn = harmonix.components.buttons.get(interaction.customId)
+    const btn = harmonix.client.components.buttons.get(interaction.customId)
 
     if (!btn) return
     btn.callback(interaction)
   })
 }
 
-export const registerModals = (harmonix: Harmonix) => {
-  harmonix.client?.on(Events.InteractionCreate, async (interaction) => {
+export const registerModals = (harmonix: RuntimeHarmonix) => {
+  harmonix.client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isModalSubmit()) return
-    const mdl = harmonix.components.modals.get(interaction.customId)
+    const mdl = harmonix.client.components.modals.get(interaction.customId)
 
     if (!mdl) return
     const inputs = Object.keys(mdl.config.inputs ?? {}).reduce<ParsedInputs>(
@@ -139,20 +134,20 @@ export const registerModals = (harmonix: Harmonix) => {
   })
 }
 
-export const registerSelectMenus = (harmonix: Harmonix) => {
-  harmonix.client?.on(Events.InteractionCreate, (interaction) => {
+export const registerSelectMenus = (harmonix: RuntimeHarmonix) => {
+  harmonix.client.on(Events.InteractionCreate, (interaction) => {
     if (!interaction.isAnySelectMenu()) return
-    const slm = harmonix.components.selectMenus.get(interaction.customId)
+    const slm = harmonix.client.components.selectMenus.get(interaction.customId)
 
     if (!slm) return
     slm.callback(interaction, interaction.values)
   })
 }
 
-export const registerAutocomplete = (harmonix: Harmonix) => {
-  harmonix.client?.on(Events.InteractionCreate, async (interaction) => {
+export const registerAutocomplete = (harmonix: RuntimeHarmonix) => {
+  harmonix.client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isAutocomplete()) return
-    const cmd = harmonix.commands.get(interaction.commandName)
+    const cmd = harmonix.client.commands.get(interaction.commandName)
 
     if (!cmd || !cmd.config.autocomplete) return
     try {

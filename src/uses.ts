@@ -37,9 +37,9 @@ export const useRuntimeEnv = (): Record<string, string | undefined> => {
 }
 
 export const useButtons = () => {
-  const { components } = useHarmonix()
+  const { client } = useHarmonix()
 
-  return components.buttons.reduce(
+  return client.components.buttons.reduce(
     (acc, button) => {
       if (button.config.id) {
         acc[button.config.id] = getButton(button.config.id) ?? undefined
@@ -51,9 +51,9 @@ export const useButtons = () => {
 }
 
 export const useModals = () => {
-  const { components } = useHarmonix()
+  const { client } = useHarmonix()
 
-  return components.modals.reduce(
+  return client.components.modals.reduce(
     (acc, modal) => {
       if (modal.config.id) {
         acc[modal.config.id] = getModal(modal.config.id) ?? undefined
@@ -65,9 +65,9 @@ export const useModals = () => {
 }
 
 export const useSelectMenus = () => {
-  const { components } = useHarmonix()
+  const { client } = useHarmonix()
 
-  return components.selectMenus.reduce(
+  return client.components.selectMenus.reduce(
     (acc, selectMenu) => {
       if (selectMenu.config.id) {
         acc[selectMenu.config.id] =
