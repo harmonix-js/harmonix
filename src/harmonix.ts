@@ -16,7 +16,7 @@ import {
   installModals,
   installPreconditions,
   installSelectMenus
-} from './load'
+} from './installs'
 import { initCient, refreshApplicationCommands } from './discord'
 import {
   registerContextMenu,
@@ -41,26 +41,42 @@ export const useHarmonix = ctx.use
 
 const createHarmonix = async (
   config: HarmonixConfig,
-  options: LoadConfigOptions
+  opts: LoadConfigOptions
 ): Promise<Harmonix> => {
-  const opts = await loadOptions(config, options)
+  const options = await loadOptions(config, opts)
   const harmonix: Harmonix = {
-    options: opts,
+    options,
     hooks: createHooks<HarmonixHooks>(),
-    logger: consola.withTag('harmonix')
+    logger: consola.withTag('harmonix'),
+    close: () => harmonix.hooks.callHook('close')
   }
 
-  await scanAndSyncOptions(harmonix)
   harmonix.hooks.addHooks(harmonix.options.hooks)
+
+  await scanAndSyncOptions(harmonix)
+
+  harmonix.hooks.hook('ready', (client) => {
+    const events = (harmonix as RuntimeHarmonix).client.events.filter(
+      (event) => event.config.name === 'ready'
+    )
+
+    if (events.size > 0) {
+      for (const [, evt] of events) {
+        ctx.call(harmonix as RuntimeHarmonix, () => evt.callback(client))
+      }
+    }
+  })
+  harmonix.hooks.hook('close', async () => {
+    await clearHarmonix(harmonix)
+  })
+  harmonix.hooks.hook('restart', () => {
+    harmonix.logger.info('Restarting Harmonix...')
+  })
 
   return harmonix
 }
 
-const watchReload = (
-  harmonix: Harmonix,
-  config: HarmonixConfig,
-  opts: LoadConfigOptions
-) => {
+const watchReload = (harmonix: Harmonix) => {
   const filesToWatch = [
     harmonix.options.dirs.commands,
     harmonix.options.dirs.events,
@@ -81,8 +97,9 @@ const watchReload = (
         `${colors.blue(event)}`,
         `${colors.gray(resolve(path).replace(harmonix.options.rootDir, ''))}`
       )
-      clearHarmonix(harmonix)
+      harmonix.close()
       try {
+        harmonix.hooks.callHook('restart')
         await loadHarmonix(harmonix)
       } catch (error: any) {
         createError(error.message)
@@ -109,7 +126,7 @@ export const initHarmonix = async (
   await loadHarmonix(harmonix)
 
   if (process.env.NODE_ENV === 'development') {
-    watchReload(harmonix, config, opts)
+    watchReload(harmonix)
   }
 
   return harmonix

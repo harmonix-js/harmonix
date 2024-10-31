@@ -71,10 +71,9 @@ export interface HarmonixConfig
     C12InputConfig<HarmonixConfig> {}
 
 export interface HarmonixHooks {
-  'bot:initialized': () => Promise<void> | void
-  'bot:beforeRegister': () => Promise<void> | void
-  'bot:registered': () => Promise<void> | void
-  'bot:error': (error: any) => Promise<void> | void
+  ready: (client: Client<true>) => Promise<void> | void
+  close: () => Promise<void> | void
+  restart: () => Promise<void> | void
 }
 
 export class HarmonixClient extends Client {
@@ -101,12 +100,17 @@ export class HarmonixClient extends Client {
       selectMenus: new Collection()
     }
   }
+
+  public discord() {
+    return this as Client<true>
+  }
 }
 
 export interface Harmonix {
   options: HarmonixOptions
   hooks: Hookable<HarmonixHooks>
   logger: ConsolaInstance
+  close: () => Promise<void>
   client?: HarmonixClient
 }
 

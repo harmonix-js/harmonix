@@ -1,7 +1,7 @@
 import { APIApplicationCommand, REST, Routes } from 'discord.js'
 import { Harmonix, HarmonixClient, RuntimeHarmonix } from './types'
 import 'dotenv/config'
-import { createError, ctx } from './harmonix'
+import { createError } from './harmonix'
 import { toJSON } from './utils'
 
 export const initCient = (harmonixOptions: Harmonix['options']) => {
@@ -46,17 +46,7 @@ export const refreshApplicationCommands = async (harmonix: RuntimeHarmonix) => {
         cmd.config.id = command.id
       }
       harmonix.logger.success('Successfully loaded application commands.\n')
-      const readyEvents = harmonix.client.events.filter(
-        (event) => event.config.name === 'ready'
-      )
-
-      if (readyEvents.size > 0) {
-        for (const [, readyEvent] of readyEvents) {
-          ctx.call(harmonix as RuntimeHarmonix, () =>
-            readyEvent.callback(client)
-          )
-        }
-      }
+      harmonix.hooks.callHook('ready', harmonix.client.discord())
     } catch (error: any) {
       createError(error.message)
     }
