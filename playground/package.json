@@ -1,0 +1,14 @@
+{
+  "name": "harmonix-playground",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "harmonix dev",
+    "build": "harmonix build",
+    "invite": "harmonix invite"
+  },
+  "dependencies": {
+    "harmonix": "workspace:*",
+    "discord.js": "14.23.2"
+  }
+}

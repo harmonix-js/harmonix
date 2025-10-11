@@ -1,0 +1,27 @@
+name: '🐞 Bug report'
+description: Report an issue or bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please carefully read the contribution guid before creating a bug report
+        👉 https://github.com/harmonix-js/harmonix/blob/main/CONTRIBUTING.md
+  - type: textarea
+    attributes:
+      label: Environment
+      description: Please run `harmonix info` in the root directory of your project and paste the results.
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: A step-by-step description of how to reproduce the issue.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Current vs Expected Behavior
+      description: A clear and concise description of what the bug is, and what you expected to happen instead.
+    validations:
+      required: true

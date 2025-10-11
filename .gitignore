@@ -1,0 +1,23 @@
+# Dependencies
+node_modules
+package-lock.json
+/.yarn
+
+# Cache
+.turbo
+.eslintcache
+
+# Generated dirs
+dist
+.output
+
+# Coverage reports
+coverage
+*.lcov
+
+# Editors
+.vscode
+.idea
+
+# Environment
+.env

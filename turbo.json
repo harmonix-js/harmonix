@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": [
+    ".env*",
+    "pnpm-lock.yaml",
+    "tsconfig.json",
+    "eslint.config.mjs"
+  ],
+  "tasks": {
+    "prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "dependsOn": ["prepack"],
+      "cache": false,
+      "persistent": true
+    }
+  },
+  "ui": "tui"
+}

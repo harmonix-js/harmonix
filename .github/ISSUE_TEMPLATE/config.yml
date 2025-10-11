@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: '🚀 Feature request'
+    url: https://github.com/harmonix-js/harmonix/discussions/new?category=ideas
+    about: Suggest a feature that will improve Harmonix

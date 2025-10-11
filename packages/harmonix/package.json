@@ -1,0 +1,57 @@
+{
+  "name": "harmonix",
+  "version": "1.0.0-beta.3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harmonix-js/harmonix.git",
+    "directory": "packages/harmonix"
+  },
+  "homepage": "https://harmonixjs.org",
+  "description": "🤖 The DX-first framework for Discord bots.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "harmonix": "./bin/harmonix.mjs"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.d.ts"
+    },
+    "./config": {
+      "import": "./dist/runtime/internal/config.mjs",
+      "require": "./dist/runtime/internal/config.d.ts"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "unbuild"
+  },
+  "dependencies": {
+    "@harmonix-js/cli": "workspace:*",
+    "@parcel/watcher": "^2.5.1",
+    "c12": "^3.1.0",
+    "consola": "^3.4.2",
+    "discord.js": "^14.21.0",
+    "dot-prop": "^10.0.0",
+    "hookable": "^5.5.3",
+    "jiti": "^2.5.1",
+    "klona": "^2.0.6",
+    "pathe": "^2.0.3",
+    "perfect-debounce": "^1.0.0",
+    "pkg-types": "^2.2.0",
+    "std-env": "^3.9.0",
+    "tinyglobby": "^0.2.14",
+    "unctx": "^2.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "unbuild": "^3.6.0"
+  }
+}

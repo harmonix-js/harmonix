@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+msg=$(cat "$1")
+
+case "$msg" in
+  Version\ Packages*)
+    echo "🦋 Skipping commitlint for Changesets automated commit"
+    exit 0
+    ;;
+esac
+
+pnpm exec commitlint --edit $1

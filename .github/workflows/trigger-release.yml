@@ -1,0 +1,55 @@
+name: Trigger Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseType:
+        description: Release Type
+        required: true
+        type: choice
+        default: beta
+        options:
+          - beta
+          - rc
+          - stable
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  version:
+    if: github.repository_owner == 'harmonix-js'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4.1.0
+
+      - uses: actions/setup-node@v5.0.0
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1.5.3
+        with:
+          version: pnpm ci:version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TYPE: ${{ github.event.inputs.releaseType }}
+
+      - name: Add label to PR
+        if: steps.changesets.outputs.pullRequestNumber
+        run: |
+          gh pr edit ${{ steps.changesets.outputs.pullRequestNumber }} --add-label "created-by: CI"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "workspaces": {
+    "packages/harmonix": {
+      "entry": ["src/types/index.ts", "src/runtime/**/*.ts"]
+    },
+    "packages/cli": {
+      "entry": ["src/index.ts", "src/runtime/harmonix.ts"],
+      "ignoreUnresolved": ["#harmonix-virtual/*"]
+    },
+    "playground": {
+      "entry": ["commands/**", "events/**", "plugins/**"],
+      "ignore": ["harmonix.config.*"]
+    }
+  }
+}

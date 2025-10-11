@@ -1,0 +1,8 @@
+packages:
+  - packages/**
+  - playground
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - oxc-resolver
