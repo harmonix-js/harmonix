@@ -6,7 +6,6 @@
     "url": "git+https://github.com/harmonix-js/harmonix.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://harmonixjs.org/docs/cli",
   "description": "⚡ Harmonix CLI",
   "license": "MIT",
   "type": "module",

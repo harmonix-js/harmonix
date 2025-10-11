@@ -6,7 +6,6 @@
     "url": "git+https://github.com/harmonix-js/harmonix.git",
     "directory": "packages/harmonix"
   },
-  "homepage": "https://harmonixjs.org",
   "description": "🤖 The DX-first framework for Discord bots.",
   "license": "MIT",
   "type": "module",
