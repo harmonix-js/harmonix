@@ -9,7 +9,6 @@
 [![npm version](https://img.shields.io/npm/v/harmonix/beta?style=flat&colorA=030712&colorB=4b43ee)](https://www.npmjs.com/package/harmonix)
 [![npm downloads](https://img.shields.io/npm/dm/harmonix?style=flat&colorA=030712&colorB=4b43ee)](https://npm.chart.dev/harmonix)
 [![license](https://img.shields.io/github/license/harmonix-js/core?style=flat&colorA=030712&colorB=4b43ee)](https://github.com/harmonix-js/harmonix/blob/main/LICENSE)
-
 [![discord](https://img.shields.io/discord/1237898486167633921?logo=discord&logoColor=white&style=flat&colorA=030712&colorB=4b43ee)](https://discord.gg/TE8F6BgteQ)
 
 </div>
