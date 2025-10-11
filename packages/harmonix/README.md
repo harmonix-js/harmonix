@@ -1,16 +1,16 @@
 <div align="center">
 
-[![Harmonix Banner](../../.github/assets/harmonix-banner.svg)](https://harmonixjs.org)
+![Harmonix Banner](../../.github/assets/harmonix-banner.svg)
 
 # Harmonix
 
 ### The DX-first framework for Discord bots.
 
-[![npm version](https://img.shields.io/npm/v/harmonix.svg?style=flat&colorA=030712&colorB=4b43ee)](https://www.npmjs.com/package/harmonix)
+[![npm version](https://img.shields.io/npm/v/harmonix/beta?style=flat&colorA=030712&colorB=4b43ee)](https://www.npmjs.com/package/harmonix)
 [![npm downloads](https://img.shields.io/npm/dm/harmonix?style=flat&colorA=030712&colorB=4b43ee)](https://npm.chart.dev/harmonix)
 [![license](https://img.shields.io/github/license/harmonix-js/core?style=flat&colorA=030712&colorB=4b43ee)](https://github.com/harmonix-js/harmonix/blob/main/LICENSE)
 
-[**Website**]() • [**Documentation**]() • [**Discord**]()
+[![discord](https://img.shields.io/discord/1237898486167633921?logo=discord&logoColor=white&style=flat&colorA=030712&colorB=4b43ee)](https://discord.gg/TE8F6BgteQ)
 
 </div>
 
@@ -37,7 +37,6 @@ It provides a number of powerful features that make it easier to develop fast, r
 - [🚀 Getting Started](#-getting-started)
 - [🤖 Development](#-development)
 - [🤝 Contributing](#-contributing)
-- [📖 Documentation](#-documentation)
 - [📄 License & Credits](#-license--credits)
 
 </details>
@@ -72,12 +71,6 @@ Harmonix is an open-source framework and like any great open-source project, it 
 Whether you're fixing a bug, improving the documentation, suggesting ideas, or building something new, your input matters.
 
 Check out our [Contributing Guide](./CONTRIBUTING.md) to get started.
-
-## 📖 Documentation
-
-Harmonix offers a fully typed, modular, and developer experience–focused API to build scalable Discord bots with ease.
-
-You can explore the [Harmonix Documentation](https://harmonixjs.org/docs).
 
 ## 📄 License & Credits
 
