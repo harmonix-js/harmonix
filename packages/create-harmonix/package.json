@@ -1,7 +1,7 @@
 {
   "name": "create-harmonix",
   "type": "module",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "⚡️ Create Harmonix-powered bots in seconds",
   "license": "MIT",
   "repository": {
