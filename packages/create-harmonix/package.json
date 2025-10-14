@@ -2,11 +2,11 @@
   "name": "create-harmonix",
   "type": "module",
   "version": "1.0.0-beta.3",
-  "description": "⚡️ Harmonix Framework CLI Experience",
+  "description": "⚡️ Create Harmonix-powered bots in seconds",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/harmonix-js/cli.git",
+    "url": "git+https://github.com/harmonix-js/harmonix.git",
     "directory": "packages/create-harmonix"
   },
   "exports": {
