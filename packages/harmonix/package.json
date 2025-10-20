@@ -30,7 +30,8 @@
     "dist"
   ],
   "scripts": {
-    "prepack": "unbuild"
+    "prepack": "unbuild",
+    "test": "vitest run"
   },
   "dependencies": {
     "@harmonix-js/cli": "workspace:*",

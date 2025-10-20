@@ -15,6 +15,9 @@
       "dependsOn": ["prepack"],
       "cache": false,
       "persistent": true
+    },
+    "test": {
+      "dependsOn": ["^prepack"]
     }
   },
   "ui": "tui"

@@ -11,6 +11,7 @@
   "scripts": {
     "build": "turbo run prepack",
     "dev": "turbo run dev --parallel",
+    "test": "turbo run test",
     "lint": "eslint --cache . && prettier -c .",
     "lint:fix": "eslint --cache --fix . && prettier -w .",
     "lint:knip": "knip",
@@ -41,7 +42,8 @@
     "prettier": "^3.6.2",
     "tinyexec": "^1.0.1",
     "turbo": "^2.5.8",
-    "typescript-eslint": "^8.44.0"
+    "typescript-eslint": "^8.44.0",
+    "vitest": "^3.2.4"
   },
   "packageManager": "pnpm@10.18.2"
 }
