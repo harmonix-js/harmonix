@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "prepack": "unbuild",
-    "test": "vitest run"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@harmonix-js/cli": "workspace:*",

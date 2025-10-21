@@ -17,7 +17,9 @@
       "persistent": true
     },
     "test": {
-      "dependsOn": ["^prepack"]
+      "dependsOn": ["^prepack"],
+      "inputs": ["$TURBO_DEFAULT$", "**/*.test.ts", "vitest.config.ts"],
+      "outputs": ["coverage/**"]
     }
   },
   "ui": "tui"
