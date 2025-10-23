@@ -31,7 +31,7 @@ const handleChanges = debounce(async (harmonix: Harmonix, events: Event[]) => {
   for (const event of events) {
     const path = resolve(event.path)
     harmonix.logger.info(
-      `\u001B[38;2;75;67;238mhmr update\u001B[0m ${colors.dim(relative(harmonix.options.srcDir, path))}`
+      `\u001B[38;2;75;67;238mhmr ${event.type}\u001B[0m ${colors.dim(relative(harmonix.options.srcDir, path))}`
     )
 
     if (event.type === 'delete') {
