@@ -1,6 +1,6 @@
 {
   "name": "harmonix",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/harmonix-js/harmonix.git",
@@ -30,7 +30,8 @@
     "dist"
   ],
   "scripts": {
-    "prepack": "unbuild"
+    "prepack": "unbuild",
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@harmonix-js/cli": "workspace:*",
@@ -52,14 +53,5 @@
   "devDependencies": {
     "typescript": "^5.9.2",
     "unbuild": "^3.6.0"
-  },
-  "keywords": [
-    "harmonix",
-    "bot",
-    "discord",
-    "discord-js",
-    "discord-bot-framework",
-    "framework",
-    "typescript"
-  ]
+  }
 }

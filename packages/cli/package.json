@@ -1,6 +1,6 @@
 {
   "name": "@harmonix-js/cli",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/harmonix-js/harmonix.git",
@@ -55,11 +55,5 @@
     "std-env": "^3.9.0",
     "tinyexec": "^1.0.1",
     "tinyglobby": "^0.2.15"
-  },
-  "keywords": [
-    "harmonix",
-    "discord",
-    "discord-js",
-    "typescript"
-  ]
+  }
 }
