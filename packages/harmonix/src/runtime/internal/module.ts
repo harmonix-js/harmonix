@@ -27,10 +27,9 @@ export const loadModule = async <T extends AnyModule>(
     module.type === ModuleType.Command &&
     harmonixOptions.categorization.inferFromPath
   ) {
-    const category = filename(dirname(path))!
+    const inferred = inferCategoryFromPath(filePath, harmonixOptions)
 
-    module.category ??=
-      harmonixOptions.categorization.categories[category] ?? category
+    module.category ??= inferred
   }
 
   if (module.type === ModuleType.Event) {
@@ -97,4 +96,19 @@ export const disposeModule = async (harmonix: Harmonix, path: string) => {
       break
     }
   }
+}
+
+const inferCategoryFromPath = (
+  filePath: string,
+  harmonixOptions: HarmonixOptions
+) => {
+  const parentDir = dirname(filePath)
+
+  if (parentDir === harmonixOptions.dirs.commands) {
+    return undefined
+  }
+
+  const category = filename(parentDir)!
+
+  return harmonixOptions.categorization.categories[category] ?? category
 }
