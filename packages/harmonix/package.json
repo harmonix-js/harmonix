@@ -53,5 +53,14 @@
   "devDependencies": {
     "typescript": "^5.9.2",
     "unbuild": "^3.6.0"
-  }
+  },
+  "keywords": [
+    "harmonix",
+    "bot",
+    "discord",
+    "discord-js",
+    "discord-bot-framework",
+    "framework",
+    "typescript"
+  ]
 }
