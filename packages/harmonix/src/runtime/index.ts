@@ -1,6 +1,8 @@
 // Commands
 export {
   defineSlashCommand,
+  defineSlashSubcommand,
+  defineSlashSubcommandGroup,
   defineUserContextMenuCommand,
   defineMessageContextMenuCommand
 } from './internal/command'

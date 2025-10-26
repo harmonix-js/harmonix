@@ -25,18 +25,12 @@ export const handleCommandInteraction = async (
   switch (command.commandType) {
     case CommandType.Slash: {
       if (!interaction.isChatInputCommand()) break
-
-      const options = parseSlashOptions(interaction, command.options)
-
-      await runPipeline(interaction, command.middleware, async (i) =>
-        command.handler(i as any, options)
-      )
+      await handleSlashCommand(interaction, command)
       break
     }
 
     case CommandType.UserContextMenu: {
       if (!interaction.isUserContextMenuCommand()) break
-
       await runPipeline(interaction, command.middleware, async (i) =>
         command.handler(i as any)
       )
@@ -45,13 +39,68 @@ export const handleCommandInteraction = async (
 
     case CommandType.MessageContextMenu: {
       if (!interaction.isMessageContextMenuCommand()) break
-
       await runPipeline(interaction, command.middleware, async (i) =>
         command.handler(i as any)
       )
       break
     }
   }
+}
+
+export const handleSlashCommand = async (
+  interaction: ChatInputCommandInteraction,
+  command: AnyCommand
+) => {
+  if ('subcommands' in command) {
+    const target = resolveSubcomand(interaction, command)
+
+    if (!target) return
+    const { sub, options } = target
+
+    await runPipeline(interaction, command.middleware, async (i) =>
+      sub.handler(i as any, options)
+    )
+
+    return
+  }
+
+  if ('options' in command && 'handler' in command) {
+    const options = parseSlashOptions(interaction, command.options ?? {})
+
+    await runPipeline(interaction, command.middleware, async (i) =>
+      command.handler(i as any, options)
+    )
+  }
+}
+
+const resolveSubcomand = (
+  interaction: ChatInputCommandInteraction,
+  command: Extract<AnyCommand, { subcommands: any }>
+) => {
+  const groupName = interaction.options.getSubcommandGroup(false)
+  const subName = interaction.options.getSubcommand(false)
+
+  if (!subName) return null
+
+  if (groupName) {
+    const group = command.subcommands[groupName]
+
+    if (!group || !('subcommands' in group)) return null
+    const sub = group.subcommands[subName]
+
+    if (!sub) return null
+
+    const options = parseSlashOptions(interaction, sub.options ?? {})
+
+    return { sub, options }
+  }
+
+  const sub = command.subcommands[subName]
+
+  if (!sub || 'subcommands' in sub) return null
+  const options = parseSlashOptions(interaction, sub.options ?? {})
+
+  return { sub, options }
 }
 
 const optionResolvers: Record<

@@ -7,7 +7,6 @@ export type { HarmonixPlugin } from './runtime/plugin'
 export type {
   ModuleType,
   HarmonixCommand,
-  HarmonixSlashCommand,
   HarmonixUserContextMenuCommand,
   HarmonixMessageContextMenuCommand,
   HarmonixEvent,
