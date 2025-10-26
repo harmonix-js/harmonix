@@ -26,11 +26,44 @@ export const handleCommandInteraction = async (
     case CommandType.Slash: {
       if (!interaction.isChatInputCommand()) break
 
-      const options = parseSlashOptions(interaction, command.options)
+      if ('subcommands' in command) {
+        const groupName = interaction.options.getSubcommandGroup(false)
+        const subName = interaction.options.getSubcommand(false)
 
-      await runPipeline(interaction, command.middleware, async (i) =>
-        command.handler(i as any, options)
-      )
+        if (groupName && subName) {
+          const group = command.subcommands[groupName]
+
+          if (!group || !('subcommands' in group)) break
+          const sub = group.subcommands[subName]
+
+          if (!sub) break
+
+          const options = parseSlashOptions(interaction, sub.options ?? {})
+          await runPipeline(interaction, command.middleware, async (i) =>
+            sub.handler(i as any, options)
+          )
+        } else if (subName) {
+          const sub = command.subcommands[subName]
+
+          if (!sub || 'subcommands' in sub) break
+          const options = parseSlashOptions(interaction, sub.options ?? {})
+
+          await runPipeline(interaction, command.middleware, async (i) =>
+            sub.handler(i as any, options)
+          )
+        }
+
+        break
+      }
+
+      if ('options' in command && 'handler' in command) {
+        const options = parseSlashOptions(interaction, command.options ?? {})
+
+        await runPipeline(interaction, command.middleware, async (i) =>
+          command.handler(i as any, options)
+        )
+        break
+      }
       break
     }
 

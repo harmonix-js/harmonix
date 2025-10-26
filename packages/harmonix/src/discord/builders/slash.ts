@@ -2,12 +2,17 @@ import {
   ChannelType,
   InteractionContextType,
   PermissionFlagsBits,
-  SlashCommandBuilder
+  SlashCommandBuilder,
+  SlashCommandSubcommandBuilder
 } from 'discord.js'
 
 import { toArray } from '../../utils/helpers'
 
-import type { HarmonixSlashCommand } from '../../types/module'
+import type {
+  HarmonixSlashCommand,
+  HarmonixSlashCommandWithOptions,
+  HarmonixSlashCommandWithSubs
+} from '../../types/module'
 import type {
   AttachmentOption,
   BooleanOption,
@@ -44,12 +49,55 @@ export const buildSlashCommand = (command: HarmonixSlashCommand) => {
     builder.setContexts(contexts)
   }
 
-  addOptions(builder, command.options)
+  if ('subcommands' in command && command.subcommands) {
+    for (const [name, subOrGroup] of Object.entries(command.subcommands)) {
+      if ('subcommands' in subOrGroup) {
+        builder.addSubcommandGroup((groupBuilder) => {
+          groupBuilder
+            .setName(subOrGroup.name ?? name)
+            .setDescription(subOrGroup.description)
+
+          for (const [subName, sub] of Object.entries(subOrGroup.subcommands)) {
+            groupBuilder.addSubcommand((subBuilder) => {
+              subBuilder
+                .setName(sub.name ?? subName)
+                .setDescription(sub.description)
+
+              if (sub.options) {
+                addOptions(subBuilder, sub.options)
+              }
+
+              return subBuilder
+            })
+          }
+
+          return groupBuilder
+        })
+      } else {
+        builder.addSubcommand((subBuilder) => {
+          subBuilder
+            .setName(subOrGroup.name ?? name)
+            .setDescription(subOrGroup.description)
+
+          if (subOrGroup.options) {
+            addOptions(subBuilder, subOrGroup.options)
+          }
+
+          return subBuilder
+        })
+      }
+    }
+  } else if ('options' in command && command.options) {
+    addOptions(builder, command.options)
+  }
 
   return builder.toJSON()
 }
 
-const addOptions = (builder: SlashCommandBuilder, options: SlashOptionMap) => {
+const addOptions = (
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
+  options: SlashOptionMap
+) => {
   for (const [name, option] of Object.entries(options)) {
     switch (option.type) {
       case 'String': {
@@ -93,7 +141,7 @@ const addOptions = (builder: SlashCommandBuilder, options: SlashOptionMap) => {
 }
 
 const addStringOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: StringOption
 ) => {
@@ -112,7 +160,7 @@ const addStringOption = (
 }
 
 const addIntegerOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: IntegerOption
 ) => {
@@ -131,7 +179,7 @@ const addIntegerOption = (
 }
 
 const addNumberOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: NumberOption
 ) => {
@@ -150,7 +198,7 @@ const addNumberOption = (
 }
 
 const addBooleanOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: BooleanOption
 ) => {
@@ -164,7 +212,7 @@ const addBooleanOption = (
 }
 
 const addChannelOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: ChannelOption
 ) => {
@@ -186,7 +234,7 @@ const addChannelOption = (
 }
 
 const addUserOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: UserOption
 ) => {
@@ -200,7 +248,7 @@ const addUserOption = (
 }
 
 const addRoleOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: RoleOption
 ) => {
@@ -214,7 +262,7 @@ const addRoleOption = (
 }
 
 const addMentionableOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: MentionableOption
 ) => {
@@ -228,7 +276,7 @@ const addMentionableOption = (
 }
 
 const addAttachmentOption = (
-  builder: SlashCommandBuilder,
+  builder: SlashCommandBuilder | SlashCommandSubcommandBuilder,
   name: string,
   option: AttachmentOption
 ) => {

@@ -11,17 +11,50 @@ import type {
 import type { Awaitable, MatchingKeys, OneOrMany } from '../utils'
 import type { ExtractOptions, SlashOptionMap } from './options'
 import type { Middleware } from './pipeline'
+import type {
+  HarmonixSlashSubcommand,
+  HarmonixSlashSubcommandGroup
+} from '../module'
 
-export interface HarmonixSlashCommandConfig<Options extends SlashOptionMap> {
+export interface HarmonixSlashCommandConfigBase {
   name?: string
   category?: string
   description: string
   contexts?: OneOrMany<keyof typeof InteractionContextType>
   memberPermissions?: OneOrMany<PermissionsString>
   nsfw?: boolean
+  middleware?: Middleware[]
+}
+
+export interface HarmonixSlashCommandConfigWithOptions<
+  Options extends SlashOptionMap
+> extends HarmonixSlashCommandConfigBase {
   options?: Options
   autocomplete?: SlashCommandAutocomplete<Options>
-  middleware?: Middleware[]
+}
+
+export interface HarmonixSlashCommandConfigWithSubs<
+  Subs extends Record<
+    string,
+    HarmonixSlashSubcommand | HarmonixSlashSubcommandGroup
+  >
+> extends HarmonixSlashCommandConfigBase {
+  subcommands: Subs
+}
+
+export interface HarmonixSlashSubcommandConfig<Options extends SlashOptionMap> {
+  name?: string
+  description: string
+  options?: Options
+  autocomplete?: SlashCommandAutocomplete<Options>
+}
+
+export interface HarmonixSlashSubcommandGroupConfig<
+  Subs extends Record<string, HarmonixSlashSubcommand>
+> {
+  name?: string
+  description: string
+  subcommands: Subs
 }
 
 export type SlashCommandAutocomplete<Options extends SlashOptionMap> = {

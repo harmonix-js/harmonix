@@ -89,12 +89,15 @@ export interface HarmonixComponent extends HarmonixModule {
   componentType: ComponentType
 }
 
-export interface HarmonixSlashCommand<
-  Options extends SlashOptionMap = SlashOptionMap
-> extends HarmonixCommand {
+interface HarmonixSlashCommandBase extends HarmonixCommand {
   commandType: CommandType.Slash
   description: string
   nsfw?: boolean
+}
+
+export interface HarmonixSlashCommandWithOptions<
+  Options extends SlashOptionMap = SlashOptionMap
+> extends HarmonixSlashCommandBase {
   options: Options
   autocomplete?: SlashCommandAutocomplete<Options>
   handler: (
@@ -102,6 +105,41 @@ export interface HarmonixSlashCommand<
     options: ExtractOptions<Options>
   ) => Awaitable<void>
 }
+
+export interface HarmonixSlashCommandWithSubs<
+  Subcommands extends Record<
+    string,
+    HarmonixSlashSubcommand | HarmonixSlashSubcommandGroup
+  > = Record<string, HarmonixSlashSubcommand | HarmonixSlashSubcommandGroup>
+> extends HarmonixSlashCommandBase {
+  subcommands: Subcommands
+}
+
+export interface HarmonixSlashSubcommand<Options extends SlashOptionMap = any> {
+  name?: string
+  description: string
+  options?: Options
+  autocomplete?: SlashCommandAutocomplete<Options>
+  handler: (
+    interaction: ChatInputCommandInteraction,
+    options: ExtractOptions<Options>
+  ) => Awaitable<void>
+}
+
+export interface HarmonixSlashSubcommandGroup<
+  Subs extends Record<string, HarmonixSlashSubcommand> = Record<
+    string,
+    HarmonixSlashSubcommand
+  >
+> {
+  name?: string
+  description: string
+  subcommands: Subs
+}
+
+export type HarmonixSlashCommand =
+  | HarmonixSlashCommandWithOptions
+  | HarmonixSlashCommandWithSubs
 
 export interface HarmonixUserContextMenuCommand extends HarmonixCommand {
   commandType: CommandType.UserContextMenu
