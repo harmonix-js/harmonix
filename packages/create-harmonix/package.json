@@ -18,18 +18,19 @@
     "create-harmonix": "./bin/create-harmonix.mjs"
   },
   "files": [
+    "bin",
     "dist"
   ],
   "scripts": {
-    "prepack": "unbuild",
-    "create-harmonix": "node ./bin/create-harmonix.mjs"
+    "build": "tsdown",
+    "prepack": "tsdown"
   },
   "dependencies": {
     "citty": "^0.1.6"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
-    "unbuild": "^2.0.0"
+    "tsdown": "^0.15.12",
+    "typescript": "^5.9.3"
   },
   "keywords": [
     "harmonix",
