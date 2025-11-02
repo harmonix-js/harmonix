@@ -28,7 +28,7 @@
     "citty": "^0.1.6"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
+    "typescript": "^5.9.3",
     "unbuild": "^2.0.0"
   },
   "keywords": [

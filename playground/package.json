@@ -9,6 +9,6 @@
   },
   "dependencies": {
     "harmonix": "workspace:*",
-    "discord.js": "14.23.2"
+    "discord.js": "14.24.2"
   }
 }
