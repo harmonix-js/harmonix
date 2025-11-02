@@ -15,22 +15,24 @@
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/index.d.ts"
+      "require": "./dist/index.d.mts"
     },
     "./config": {
-      "import": "./dist/runtime/internal/config.mjs",
-      "require": "./dist/runtime/internal/config.d.ts"
+      "import": "./dist/config.mjs",
+      "require": "./dist/config.d.mts"
     },
     "./types": {
-      "types": "./dist/types.d.ts"
+      "types": "./dist/types.d.mts"
     }
   },
   "types": "./dist/index.d.ts",
   "files": [
+    "bin",
     "dist"
   ],
   "scripts": {
-    "prepack": "unbuild",
+    "build": "tsdown",
+    "prepack": "tsdown",
     "test": "vitest run --coverage"
   },
   "dependencies": {
@@ -51,6 +53,7 @@
     "unctx": "^2.4.1"
   },
   "devDependencies": {
+    "tsdown": "^0.15.12",
     "typescript": "^5.9.3",
     "unbuild": "^3.6.1"
   },
