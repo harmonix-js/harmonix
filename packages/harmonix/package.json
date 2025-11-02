@@ -54,8 +54,7 @@
   },
   "devDependencies": {
     "tsdown": "^0.15.12",
-    "typescript": "^5.9.3",
-    "unbuild": "^3.6.1"
+    "typescript": "^5.9.3"
   },
   "keywords": [
     "harmonix",
