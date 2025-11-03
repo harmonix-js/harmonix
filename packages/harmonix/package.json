@@ -46,7 +46,7 @@
     "jiti": "^2.6.1",
     "klona": "^2.0.6",
     "pathe": "^2.0.3",
-    "perfect-debounce": "^1.0.0",
+    "perfect-debounce": "^2.0.0",
     "pkg-types": "^2.3.0",
     "std-env": "^3.10.0",
     "tinyglobby": "^0.2.15",
