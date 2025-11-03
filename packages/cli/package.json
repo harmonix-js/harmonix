@@ -38,7 +38,7 @@
     "clipboardy": "^5.0.0",
     "consola": "^3.4.2",
     "devalue": "^5.4.2",
-    "dotenv": "^16.6.1",
+    "dotenv": "^17.2.3",
     "exsolve": "^1.0.7",
     "giget": "^2.0.0",
     "gzip-size": "^7.0.0",
