@@ -1,7 +1,7 @@
+import { builtinModules } from 'node:module'
 import { sanitizeFilePath } from 'mlly'
-import { dirname, normalize, relative, resolve } from 'pathe'
+import { dirname, normalize, relative } from 'pathe'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import esbuild from 'rollup-plugin-esbuild'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 
@@ -17,15 +17,15 @@ export const getRollupConfig = (
   rootDir: string
 ): RollupOptions => {
   return {
-    input: resolveEntry('../runtime/harmonix.mjs', import.meta.url),
-    external: ['discord.js'],
+    input: resolveEntry('./runtime/harmonix.mjs', import.meta.url),
+    external: [
+      'discord.js',
+      ...builtinModules,
+      ...builtinModules.map((m) => `node:${m}`)
+    ],
     plugins: [
       config(harmonix.options),
       modules(harmonix),
-      esbuild({
-        target: 'es2022',
-        platform: 'node'
-      }),
       nodeResolve({
         preferBuiltins: true,
         rootDir,
@@ -70,10 +70,8 @@ export const getRollupConfig = (
       },
       format: 'esm',
       exports: 'auto',
-      generatedCode: { constBindings: true },
       sanitizeFileName: sanitizeFilePath,
       sourcemap: harmonix.options.sourceMap,
-      sourcemapExcludeSources: true,
       sourcemapIgnoreList: (p) => p.includes('node_modules')
     }
   }
