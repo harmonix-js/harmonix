@@ -54,7 +54,7 @@
     "rollup": "^4.52.5",
     "scule": "^1.3.0",
     "std-env": "^3.10.0",
-    "tinyexec": "^1.0.1",
+    "tinyexec": "^1.0.2",
     "tinyglobby": "^0.2.15"
   },
   "keywords": [
