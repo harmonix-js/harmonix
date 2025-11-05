@@ -39,7 +39,7 @@
     "knip": "^5.67.1",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
-    "tinyexec": "^1.0.1",
+    "tinyexec": "^1.0.2",
     "turbo": "^2.6.0",
     "typescript-eslint": "^8.46.3"
   },
