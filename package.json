@@ -36,7 +36,7 @@
     "globals": "^16.5.0",
     "harmonix": "workspace:*",
     "husky": "^9.1.7",
-    "knip": "^5.67.1",
+    "knip": "^5.68.0",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
     "tinyexec": "^1.0.2",
