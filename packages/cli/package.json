@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
-    "@rollup/plugin-commonjs": "^28.0.9",
+    "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "citty": "^0.1.6",
