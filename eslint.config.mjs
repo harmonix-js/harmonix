@@ -45,6 +45,7 @@ export default defineConfig([
       'unicorn/no-abusive-eslint-disable': 0,
       'unicorn/import-style': 0,
       'unicorn/prefer-module': 0,
+      'unicorn/prefer-string-raw': 0,
       'unicorn/prefer-top-level-await': 0
     }
   },
