@@ -8,7 +8,6 @@
     "invite": "harmonix invite"
   },
   "dependencies": {
-    "harmonix": "workspace:*",
-    "discord.js": "14.24.2"
+    "harmonix": "workspace:*"
   }
 }
