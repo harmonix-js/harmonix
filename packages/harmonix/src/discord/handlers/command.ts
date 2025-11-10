@@ -47,7 +47,7 @@ export const handleCommandInteraction = async (
   }
 }
 
-export const handleSlashCommand = async (
+const handleSlashCommand = async (
   interaction: ChatInputCommandInteraction,
   command: AnyCommand
 ) => {
