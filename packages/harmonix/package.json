@@ -32,8 +32,7 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "prepack": "tsdown",
-    "test": "vitest run --coverage"
+    "prepack": "tsdown"
   },
   "dependencies": {
     "@harmonix-js/cli": "workspace:*",
