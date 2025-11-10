@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - beta
+  pull_request:
+    branches:
+      - beta
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name != 'push' }}
+
+jobs:
+  build:
+    name: Build & Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v5.0.0
+      - uses: pnpm/action-setup@v4.2.0
+      - uses: actions/setup-node@v6.0.0
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🔠 Lint project
+        run: pnpm lint
+
+      - name: ✂️ Knip project
+        run: pnpm lint:knip
+
+      - name: 🛠️ Build project
+        run: pnpm build
