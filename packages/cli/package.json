@@ -26,7 +26,7 @@
     "prepack": "tsdown"
   },
   "devDependencies": {
-    "tsdown": "^0.16.1",
+    "tsdown": "^0.16.4",
     "typescript": "^5.9.3"
   },
   "dependencies": {
@@ -37,7 +37,7 @@
     "citty": "^0.1.6",
     "clipboardy": "^5.0.0",
     "consola": "^3.4.2",
-    "devalue": "^5.4.2",
+    "devalue": "^5.5.0",
     "dotenv": "^17.2.3",
     "exsolve": "^1.0.8",
     "giget": "^2.0.0",
