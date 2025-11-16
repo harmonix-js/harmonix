@@ -1,5 +1,11 @@
 # create-harmonix
 
+## 1.0.0-beta.5
+
+### Patch Changes
+
+- [#9](https://github.com/harmonix-js/harmonix/pull/9) [`0cf85fc`](https://github.com/harmonix-js/harmonix/commit/0cf85fc636070baa3a43399a08a8a447bfb19663) Thanks [@davidabou](https://github.com/davidabou)! - Migrate to tsdown bundler
+
 ## 1.0.0-beta.4
 
 ### Patch Changes
