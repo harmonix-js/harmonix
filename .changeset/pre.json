@@ -2,9 +2,15 @@
   "mode": "pre",
   "tag": "beta",
   "initialVersions": {
-    "@harmonix-js/cli": "1.0.0-beta.3",
-    "create-harmonix": "1.0.0-beta.3",
-    "harmonix": "1.0.0-beta.3"
+    "@harmonix-js/cli": "1.0.0-beta.4",
+    "create-harmonix": "1.0.0-beta.4",
+    "harmonix": "1.0.0-beta.4"
   },
-  "changesets": ["purple-badgers-poke"]
+  "changesets": [
+    "clean-peas-wonder",
+    "evil-dolls-tell",
+    "purple-badgers-poke",
+    "tasty-tires-switch",
+    "tired-pens-cross"
+  ]
 }
