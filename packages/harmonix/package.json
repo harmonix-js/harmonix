@@ -39,7 +39,7 @@
     "@parcel/watcher": "^2.5.1",
     "c12": "^3.3.2",
     "consola": "^3.4.2",
-    "discord.js": "^14.24.2",
+    "discord.js": "^14.25.0",
     "dot-prop": "^10.1.0",
     "hookable": "^5.5.3",
     "jiti": "^2.6.1",
@@ -52,7 +52,7 @@
     "unctx": "^2.4.1"
   },
   "devDependencies": {
-    "tsdown": "^0.16.4",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3"
   },
   "keywords": [
