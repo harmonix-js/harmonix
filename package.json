@@ -25,8 +25,8 @@
     "harmonix": "workspace:*"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.29.7",
+    "@changesets/changelog-github": "^0.5.2",
+    "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@eslint/js": "^9.39.1",
@@ -38,10 +38,10 @@
     "husky": "^9.1.7",
     "knip": "^5.70.2",
     "lint-staged": "^16.2.7",
-    "prettier": "^3.6.2",
+    "prettier": "^3.7.1",
     "tinyexec": "^1.0.2",
     "turbo": "^2.6.1",
     "typescript-eslint": "^8.48.0"
   },
-  "packageManager": "pnpm@10.23.0"
+  "packageManager": "pnpm@10.24.0"
 }
