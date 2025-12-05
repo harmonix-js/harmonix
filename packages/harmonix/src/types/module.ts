@@ -188,8 +188,7 @@ interface HarmonixSelectMenuComponent extends HarmonixComponent {
   selectMenuType: SelectMenuType
 }
 
-export interface HarmonixStringSelectMenuComponent
-  extends HarmonixSelectMenuComponent {
+export interface HarmonixStringSelectMenuComponent extends HarmonixSelectMenuComponent {
   selectMenuType: SelectMenuType.String
   options: HarmonixStringSelectMenuOption[]
   handler: (
@@ -198,8 +197,7 @@ export interface HarmonixStringSelectMenuComponent
   ) => Awaitable<void>
 }
 
-export interface HarmonixUserSelectMenuComponent
-  extends HarmonixSelectMenuComponent {
+export interface HarmonixUserSelectMenuComponent extends HarmonixSelectMenuComponent {
   selectMenuType: SelectMenuType.User
   defaultUsers?: Snowflake[]
   handler: (
@@ -208,8 +206,7 @@ export interface HarmonixUserSelectMenuComponent
   ) => Awaitable<void>
 }
 
-export interface HarmonixRoleSelectMenuComponent
-  extends HarmonixSelectMenuComponent {
+export interface HarmonixRoleSelectMenuComponent extends HarmonixSelectMenuComponent {
   selectMenuType: SelectMenuType.Role
   defaultRoles?: Snowflake[]
   handler: (
@@ -218,8 +215,7 @@ export interface HarmonixRoleSelectMenuComponent
   ) => Awaitable<void>
 }
 
-export interface HarmonixMentionableSelectMenuComponent
-  extends HarmonixSelectMenuComponent {
+export interface HarmonixMentionableSelectMenuComponent extends HarmonixSelectMenuComponent {
   selectMenuType: SelectMenuType.Mentionable
   defaultValues?: Snowflake[]
   handler: (
@@ -228,8 +224,7 @@ export interface HarmonixMentionableSelectMenuComponent
   ) => Awaitable<void>
 }
 
-export interface HarmonixChannelSelectMenuComponent
-  extends HarmonixSelectMenuComponent {
+export interface HarmonixChannelSelectMenuComponent extends HarmonixSelectMenuComponent {
   selectMenuType: SelectMenuType.Channel
   channelTypes?: OneOrMany<keyof typeof ChannelType>
   defaultChannels?: Snowflake[]

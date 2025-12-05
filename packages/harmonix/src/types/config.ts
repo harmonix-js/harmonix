@@ -60,7 +60,8 @@ export interface HarmonixOptions {
 }
 
 export interface HarmonixConfig
-  extends DeepPartial<Omit<HarmonixOptions, '_config' | '_c12'>>,
+  extends
+    DeepPartial<Omit<HarmonixOptions, '_config' | '_c12'>>,
     C12InputConfig<HarmonixConfig> {}
 
 export interface LoadConfigOptions {

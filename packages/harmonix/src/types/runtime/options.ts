@@ -53,17 +53,20 @@ interface WithAutocomplete<T> {
 }
 
 export interface StringOption
-  extends BaseOption<'String'>,
+  extends
+    BaseOption<'String'>,
     Pick<WithRange, 'minLength' | 'maxLength'>,
     WithAutocomplete<string> {}
 
 export interface IntegerOption
-  extends BaseOption<'Integer'>,
+  extends
+    BaseOption<'Integer'>,
     Pick<WithRange, 'minValue' | 'maxValue'>,
     WithAutocomplete<number> {}
 
 export interface NumberOption
-  extends BaseOption<'Number'>,
+  extends
+    BaseOption<'Number'>,
     Pick<WithRange, 'minValue' | 'maxValue'>,
     WithAutocomplete<number> {}
 
