@@ -8,7 +8,8 @@ on:
     branches:
       - beta
 
-permissions: {}
+permissions:
+  contents: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
@@ -16,12 +17,17 @@ concurrency:
 
 jobs:
   build:
-    name: Build & Lint
+    name: Lint & Build
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v6.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
       - uses: pnpm/action-setup@v4.2.0
       - uses: actions/setup-node@v6.1.0
         with:
@@ -33,6 +39,15 @@ jobs:
 
       - name: 🔠 Lint project
         run: pnpm lint:fix
+
+      - name: 💾 Commit lint fixes (PR only)
+        if: github.event_name == 'pull_request'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --staged --quiet || git commit -m "chore: apply lint fixes"
+          git push origin ${{ github.event.pull_request.head.ref }}
 
       - name: ✂️ Knip project
         run: pnpm lint:knip
