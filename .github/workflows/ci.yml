@@ -8,7 +8,8 @@ on:
     branches:
       - beta
 
-permissions: {}
+permissions:
+  contents: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
@@ -16,7 +17,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build & Lint
+    name: Lint & Build
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -33,6 +34,15 @@ jobs:
 
       - name: 🔠 Lint project
         run: pnpm lint:fix
+
+      - name: 💾 Commit lint fixed (PR only)
+        if: github.event_name == 'pull_request'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --staged --quiet || git commit -m "chore: apply lint fixes"
+          git push
 
       - name: ✂️ Knip project
         run: pnpm lint:knip
