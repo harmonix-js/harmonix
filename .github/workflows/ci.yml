@@ -23,6 +23,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
       - uses: pnpm/action-setup@v4.2.0
       - uses: actions/setup-node@v6.1.0
         with:
