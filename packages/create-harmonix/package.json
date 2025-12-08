@@ -29,7 +29,7 @@
     "citty": "^0.1.6"
   },
   "devDependencies": {
-    "tsdown": "^0.17.0",
+    "tsdown": "^0.17.2",
     "typescript": "^5.9.3"
   },
   "keywords": [
