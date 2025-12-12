@@ -1,0 +1,14 @@
+{
+  "name": "@harmonix-js/docs",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "2.0.0-alpha.15",
+    "vitepress-plugin-llms": "^1.9.3"
+  }
+}

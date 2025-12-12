@@ -19,7 +19,10 @@
     "play:build": "harmonix build playground",
     "ci:version": "node ./scripts/version.ts",
     "ci:publish": "pnpm build && changeset publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "resolutions": {
     "harmonix": "workspace:*"
@@ -41,7 +44,8 @@
     "prettier": "^3.7.4",
     "tinyexec": "^1.0.2",
     "turbo": "^2.6.3",
-    "typescript-eslint": "^8.49.0"
+    "typescript-eslint": "^8.49.0",
+    "vitepress": "2.0.0-alpha.15"
   },
   "packageManager": "pnpm@10.25.0"
 }

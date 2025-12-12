@@ -1,7 +1,6 @@
 # Dependencies
 node_modules
 package-lock.json
-/.yarn
 
 # Cache
 .turbo
@@ -21,3 +20,7 @@ coverage
 
 # Environment
 .env
+
+# Vitepress
+docs/.vitepress/dist
+docs/.vitepress/cache
