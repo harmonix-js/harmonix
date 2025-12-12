@@ -1,0 +1,25 @@
+name: autofix.ci # needed to securely identify the workflow
+
+on:
+  pull_request:
+    branches:
+      - beta
+
+permissions:
+  contents: read
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.1
+      - uses: pnpm/action-setup@v4.2.0
+      - uses: actions/setup-node@v6.1.0
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm lint:fix
+      - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
+        with:
+          commit-message: 'chore: apply automated updates'
