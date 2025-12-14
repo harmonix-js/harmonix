@@ -125,7 +125,7 @@ const parseSlashOptions = <T extends SlashOptionMap>(
   const parsed: Record<string, unknown> = {}
 
   for (const [name, option] of Object.entries(options)) {
-    const resolver = optionResolvers[option.type]
+    const resolver = optionResolvers[option.type]!
 
     parsed[name] = resolver(interaction, name)
   }

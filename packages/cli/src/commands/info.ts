@@ -67,7 +67,7 @@ export default defineCommand({
       splitByCase(key).join(' '),
       val?.includes('`') ? val : `\`${val}\``
     ])
-    const maxLength = Math.max(...entries.map(([label]) => label.length))
+    const maxLength = Math.max(...entries.map(([label]) => label?.length || 0))
     const infoStr = entries
       .map(([label, value]) => `- ${`${label}:`.padEnd(maxLength + 2)}${value}`)
       .join('\n')
