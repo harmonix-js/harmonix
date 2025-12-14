@@ -42,18 +42,18 @@
     "discord.js": "^14.25.1",
     "dot-prop": "^10.1.0",
     "hookable": "^5.5.3",
-    "jiti": "^2.6.1",
+    "jiti": "catalog:prod",
     "klona": "^2.0.6",
-    "pathe": "^2.0.3",
+    "pathe": "catalog:prod",
     "perfect-debounce": "^2.0.0",
-    "pkg-types": "^2.3.0",
+    "pkg-types": "catalog:prod",
     "std-env": "^3.10.0",
-    "tinyglobby": "^0.2.15",
+    "tinyglobby": "catalog:prod",
     "unctx": "^2.4.1"
   },
   "devDependencies": {
-    "tsdown": "^0.17.4",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:dev",
+    "typescript": "catalog:dev"
   },
   "keywords": [
     "harmonix",

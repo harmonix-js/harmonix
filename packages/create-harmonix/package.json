@@ -26,11 +26,11 @@
     "prepack": "tsdown"
   },
   "dependencies": {
-    "citty": "^0.1.6"
+    "citty": "catalog:prod"
   },
   "devDependencies": {
-    "tsdown": "^0.17.4",
-    "typescript": "^5.9.3"
+    "tsdown": "catalog:dev",
+    "typescript": "catalog:dev"
   },
   "keywords": [
     "harmonix",

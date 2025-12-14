@@ -5,3 +5,14 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
   - oxc-resolver
+
+catalogs:
+  dev:
+    tsdown: ^0.17.4
+    typescript: ^5.9.3
+  prod:
+    citty: ^0.1.6
+    jiti: ^2.6.1
+    pathe: ^2.0.3
+    pkg-types: ^2.3.0
+    tinyglobby: ^0.2.15
