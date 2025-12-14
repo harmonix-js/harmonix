@@ -77,7 +77,7 @@ export default defineConfig({
       message:
         'Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.',
       copyright:
-        'Copyright © 2023-present <a href="https://github.com/davidabou" target="_blank">David Abou</a>'
+        'Copyright © 2024-present <a href="https://github.com/davidabou" target="_blank">David Abou</a>'
     },
 
     search: {
