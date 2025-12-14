@@ -4,8 +4,7 @@
 
 Create interactive button handlers:
 
-```typescript
-// components/confirm.ts
+```typescript [components/confirm.ts]
 import { defineButtonComponent } from 'harmonix'
 
 export default defineButtonComponent(
@@ -21,8 +20,7 @@ export default defineButtonComponent(
 
 Use the button in a command:
 
-```typescript
-// commands/moderation/ban.ts // [!code focus]
+```typescript [commands/moderation/ban.ts]
 import { defineSlashCommand, useButton, createActionRow } from 'harmonix'
 
 export default defineSlashCommand(
@@ -58,8 +56,7 @@ export default defineSlashCommand(
 
 Handle select menu interactions:
 
-```typescript
-// components/starter.ts
+```typescript [components/starter.ts]
 export default defineSelectMenuComponent(
   {
     placeholder: 'Make a selection!',
@@ -89,8 +86,7 @@ export default defineSelectMenuComponent(
 
 Use the select menu in a command:
 
-```typescript
-// commands/pokemon.ts
+```typescript [commands/pokemon.ts]
 import { defineSlashCommand, useSelectMenu, createActionRow } from 'harmonix'
 
 export default defineSlashCommand(
@@ -114,8 +110,7 @@ export default defineSlashCommand(
 
 Handle form submissions:
 
-```typescript
-// components/my-modal.ts
+```typescript [components/my-modal.ts]
 export default defineModalComponent(
   {
     title: 'My Modal',
@@ -136,8 +131,7 @@ export default defineModalComponent(
 
 Use the modal in a command:
 
-```typescript
-// commands/hobbies.ts
+```typescript [commands/hobbies.ts]
 import { defineSlashCommand, useModal } from 'harmonix'
 
 export default defineSlashCommand(

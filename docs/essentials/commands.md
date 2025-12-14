@@ -4,8 +4,7 @@
 
 Create a slash command by exporting `defineSlashCommand` from a file in the `commands/` directory:
 
-```typescript
-// commands/ping.ts
+```typescript [commands/ping.ts]
 import { defineSlashCommand } from 'harmonix'
 
 export default defineSlashCommand(
@@ -22,8 +21,7 @@ export default defineSlashCommand(
 
 Add options to your commands with full type safety:
 
-```typescript
-// commands/moderation/ban.ts
+```typescript [commands/moderation/ban.ts]
 import { defineSlashCommand } from 'harmonix'
 
 export default defineSlashCommand(
@@ -56,8 +54,7 @@ export default defineSlashCommand(
 
 Organize related commands using subcommands with `defineSlashSubcommand`:
 
-```typescript
-// commands/utility/info.ts
+```typescript [commands/utility/info.ts]
 import { defineSlashCommand, defineSlashSubcommand } from 'harmonix'
 
 const user = defineSlashSubcommand(
@@ -95,8 +92,7 @@ Create context menu commands that appear when right-clicking users or messages. 
 
 ### User Context Menu
 
-```typescript
-// commands/userinfo.ts
+```typescript [commands/userinfo.ts]
 import { defineUserContextMenuCommand } from 'harmonix'
 
 export default defineUserContextMenuCommand(
@@ -111,8 +107,7 @@ export default defineUserContextMenuCommand(
 
 ### Message Context Menu
 
-```typescript
-// commands/messageinfo.ts
+```typescript [commands/messageinfo.ts]
 import { defineMessageContextMenuCommand } from 'harmonix'
 
 export default defineMessageContextMenuCommand(

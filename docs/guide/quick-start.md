@@ -11,9 +11,17 @@ To get started with Harmonix, ensure your environment meets the following requir
 
 In order to create a new Harmonix bot, you can use the [`create-harmonix`](https://www.npmjs.com/package/create-harmonix) CLI tool.
 
-```sh
+::: code-group
+
+```sh [pnpm]
 pnpm create harmonix@latest
 ```
+
+```sh [npm]
+npm create harmonix@latest
+```
+
+:::
 
 You will be prompted to provide configuration information.
 
@@ -52,17 +60,33 @@ export default defineConfig({
 
 Then, you can use the following command to add your bot into your Discord server:
 
-```sh
+::: code-group
+
+```sh [pnpm]
 pnpm invite -o
 ```
+
+```sh [npm]
+npm invite -o
+```
+
+:::
 
 ## Running in develoment mode
 
 To run your bot in development mode, use the following command:
 
-```sh
+::: code-group
+
+```sh [pnpm]
 pnpm dev
 ```
+
+```sh [npm]
+npm dev
+```
+
+:::
 
 Edit the `commands/ping.ts` file and save it to see the changes reflected in real-time.
 
@@ -70,8 +94,16 @@ Edit the `commands/ping.ts` file and save it to see the changes reflected in rea
 
 Once you are ready to ship your bot to production, you can build it using the following command:
 
-```sh
+::: code-group
+
+```sh [pnpm]
 pnpm build
 ```
+
+```sh [npm]
+npm build
+```
+
+:::
 
 This will create a production-ready build of your bot in the `.output` directory.

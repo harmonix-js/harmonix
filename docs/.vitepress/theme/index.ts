@@ -3,6 +3,7 @@ import CopyOrDownloadAsMarkdownButtons from 'vitepress-plugin-llms/vitepress-com
 
 import type { Theme } from 'vitepress'
 
+import 'virtual:group-icons.css'
 import './styles.css'
 
 export default {

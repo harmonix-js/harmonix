@@ -4,8 +4,7 @@
 
 Handle Discord.js events by defining event handlers:
 
-```typescript
-// events/ready.ts
+```typescript [events/ready.ts]
 import { defineEvent } from 'harmonix'
 
 export default defineEvent('ready', (client) => {
@@ -17,8 +16,7 @@ export default defineEvent('ready', (client) => {
 
 Configure event behavior:
 
-```typescript
-// events/clientReady.ts
+```typescript [events/clientReady.ts]
 import { defineEvent } from 'harmonix'
 
 export default defineEvent(
@@ -36,8 +34,7 @@ export default defineEvent(
 
 Here are commonly used events:
 
-```typescript
-// events/guildMemberAdd.ts
+```typescript [events/guildMemberAdd.ts]
 import { defineEvent } from 'harmonix'
 
 export default defineEvent('guildMemberAdd', async (member) => {

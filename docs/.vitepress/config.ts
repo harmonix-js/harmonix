@@ -1,5 +1,9 @@
 import { defineConfig } from 'vitepress'
 import llmstxt, { copyOrDownloadAsMarkdownButtons } from 'vitepress-plugin-llms'
+import {
+  groupIconMdPlugin,
+  groupIconVitePlugin
+} from 'vitepress-plugin-group-icons'
 
 import {
   description,
@@ -27,7 +31,7 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [llmstxt()]
+    plugins: [groupIconVitePlugin(), llmstxt()]
   },
 
   themeConfig: {
@@ -87,6 +91,7 @@ export default defineConfig({
   markdown: {
     config(md) {
       md.use(copyOrDownloadAsMarkdownButtons)
+      md.use(groupIconMdPlugin)
     }
   }
 })
