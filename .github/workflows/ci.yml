@@ -9,8 +9,9 @@ on:
       - beta
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v6.0.1
       - uses: pnpm/action-setup@v4.2.0
@@ -19,11 +20,29 @@ jobs:
           node-version: lts/*
           cache: 'pnpm'
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: pnpm install
 
-      - name: 🔠 Lint project
-        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
 
-      - name: 🛠️ Build project
+      - name: Build
         run: pnpm build
+
+  lint:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6.0.1
+      - uses: pnpm/action-setup@v4.2.0
+      - uses: actions/setup-node@v6.1.0
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm lint
