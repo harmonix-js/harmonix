@@ -1,14 +1,15 @@
 import type { AutocompleteInteraction, Awaitable } from 'discord.js'
 
 import type { Harmonix } from '../../types/harmonix'
-import type { HarmonixSlashCommand } from '../../types/module'
+import type { HarmonixSlashCommandWithOptions } from '../../types/module'
 
 export async function handleAutocompleteInteraction(
   harmonix: Harmonix,
   interaction: AutocompleteInteraction
 ) {
   const command = harmonix.commands.find(
-    (cmd): cmd is HarmonixSlashCommand => cmd.name === interaction.commandName
+    (cmd): cmd is HarmonixSlashCommandWithOptions =>
+      cmd.name === interaction.commandName && 'autocomplete' in cmd
   )
 
   if (!command || !command.autocomplete) return
