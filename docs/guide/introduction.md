@@ -15,7 +15,7 @@ Instead of managing endless setup files, manual command registration, or fragile
 
 #### Key Features
 
-- **🔷 TypeScript-First Development** — Full type safety with first-class TypeScript support and intelligent code completion
+- **⚡ TypeScript-First Development** — Full type safety with first-class TypeScript support and intelligent code completion
 - **🧩 Modular Auto-Discovery** — Automatic discovery and registration of commands, events, and components
 - **🎯 Built-in Context System** — Intuitive state management that makes handling data seamless
 - **🔥 Hot Module Replacement** — Real-time code reloading without restarts for rapid development

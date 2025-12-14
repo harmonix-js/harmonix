@@ -6,6 +6,8 @@ Handle Discord.js events by defining event handlers:
 
 ```typescript
 // events/ready.ts
+import { defineEvent } from 'harmonix'
+
 export default defineEvent('ready', (client) => {
   console.log(`✅ Logged in as ${client.user.tag}`)
 })
@@ -16,18 +18,16 @@ export default defineEvent('ready', (client) => {
 Configure event behavior:
 
 ```typescript
-// events/messageCreate.ts
+// events/clientReady.ts
+import { defineEvent } from 'harmonix'
+
 export default defineEvent(
   {
-    name: 'messageCreate',
-    once: false
+    name: 'clientReady',
+    once: true
   },
-  async (message) => {
-    if (message.author.bot) return
-
-    if (message.content.startsWith('!ping')) {
-      await message.reply('Pong!')
-    }
+  async (client) => {
+    console.log(`✅ Logged in as ${client.user.tag}`)
   }
 )
 ```
@@ -38,6 +38,8 @@ Here are commonly used events:
 
 ```typescript
 // events/guildMemberAdd.ts
+import { defineEvent } from 'harmonix'
+
 export default defineEvent('guildMemberAdd', async (member) => {
   const channel = member.guild.systemChannel
   if (channel) {

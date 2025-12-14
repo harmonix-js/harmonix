@@ -6,6 +6,8 @@ Create a slash command by exporting `defineSlashCommand` from a file in the `com
 
 ```typescript
 // commands/ping.ts
+import { defineSlashCommand } from 'harmonix'
+
 export default defineSlashCommand(
   {
     description: 'Replies with Pong!'
@@ -22,6 +24,8 @@ Add options to your commands with full type safety:
 
 ```typescript
 // commands/moderation/ban.ts
+import { defineSlashCommand } from 'harmonix'
+
 export default defineSlashCommand(
   {
     description: 'Select a member and ban them.',
@@ -54,6 +58,8 @@ Organize related commands using subcommands with `defineSlashSubcommand`:
 
 ```typescript
 // commands/utility/info.ts
+import { defineSlashCommand, defineSlashSubcommand } from 'harmonix'
+
 const user = defineSlashSubcommand(
   {
     description: 'Info about a user',
@@ -91,6 +97,8 @@ Create context menu commands that appear when right-clicking users or messages. 
 
 ```typescript
 // commands/userinfo.ts
+import { defineUserContextMenuCommand } from 'harmonix'
+
 export default defineUserContextMenuCommand(
   {
     name: 'User Information'
@@ -105,29 +113,14 @@ export default defineUserContextMenuCommand(
 
 ```typescript
 // commands/messageinfo.ts
+import { defineMessageContextMenuCommand } from 'harmonix'
+
 export default defineMessageContextMenuCommand(
   {
     name: 'Message Information'
   },
   async (interaction, target) => {
     await interaction.reply(`💬 Message: ${target.content}`)
-  }
-)
-```
-
-## Command Metadata
-
-Add additional metadata to your commands:
-
-```typescript
-export default defineSlashCommand(
-  {
-    description: 'Admin only command',
-    defaultMemberPermissions: ['Administrator'],
-    dmPermission: false
-  },
-  async (interaction) => {
-    await interaction.reply('Admin command executed!')
   }
 )
 ```
