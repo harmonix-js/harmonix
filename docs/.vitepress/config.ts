@@ -3,6 +3,7 @@ import llmstxt, { copyOrDownloadAsMarkdownButtons } from 'vitepress-plugin-llms'
 
 import {
   description,
+  discord,
   github,
   name,
   ogImage,
@@ -43,15 +44,34 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Guide',
+        text: 'Getting Started',
         items: [
           { text: 'Introduction', link: '/guide/introduction' },
-          { text: 'Getting Started', link: '/guide/getting-started' }
+          { text: 'Quick Start', link: '/guide/quick-start' },
+          { text: 'Core Concepts', link: '/guide/core-concepts' }
+        ]
+      },
+      {
+        text: 'Essentials',
+        items: [
+          { text: 'Commands', link: '/essentials/commands' },
+          { text: 'Events', link: '/essentials/events' },
+          { text: 'Components', link: '/essentials/components' }
+        ]
+      },
+      {
+        text: 'Advanced',
+        items: [
+          { text: 'Middleware', link: '/advanced/middleware' },
+          { text: 'Configuration', link: '/advanced/configuration' }
         ]
       }
     ],
 
-    socialLinks: [{ icon: 'github', link: github }],
+    socialLinks: [
+      { icon: 'github', link: github },
+      { icon: 'discord', link: discord }
+    ],
 
     footer: {
       message:

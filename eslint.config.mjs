@@ -5,7 +5,7 @@ import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 import globals from 'globals'
 
 export default defineConfig([
-  { ignores: ['**/dist/**', '**/.output/**'] },
+  { ignores: ['**/dist/**', '**/.output/**', '**/cache/**'] },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   eslintPluginUnicorn.configs.recommended,
