@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "es2023",
+    "target": "esnext",
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+
     "module": "preserve",
     "noEmit": true,
-    "lib": ["es2023"],
-    "types": ["node"]
+
+    "lib": ["es2023"]
   },
-  "exclude": ["dist"]
+  "exclude": ["**/dist/**"]
 }
