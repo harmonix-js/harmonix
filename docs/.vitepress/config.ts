@@ -60,7 +60,8 @@ export default defineConfig({
         items: [
           { text: 'Commands', link: '/essentials/commands' },
           { text: 'Events', link: '/essentials/events' },
-          { text: 'Components', link: '/essentials/components' }
+          { text: 'Components', link: '/essentials/components' },
+          { text: 'CLI', link: '/cli/' }
         ]
       },
       {
@@ -69,6 +70,10 @@ export default defineConfig({
           { text: 'Middleware', link: '/advanced/middleware' },
           { text: 'Configuration', link: '/advanced/configuration' }
         ]
+      },
+      {
+        text: 'Reference',
+        items: [{ text: 'API Reference', link: '/reference/api-reference' }]
       }
     ],
 

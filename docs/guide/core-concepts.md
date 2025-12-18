@@ -6,7 +6,7 @@ Harmonix uses a convention-based file structure that automatically discovers and
 
 ```
 my-bot/
-├─ commands/          # Slash commands and subcommands
+├─ commands/          # Slash commands
 │  ├─ ping.ts
 │  ├─ moderation/
 │  │  ├─ ban.ts
@@ -21,8 +21,6 @@ my-bot/
 │  │  └─ verify.ts
 │  └─ modals/
 │     └─ feedback.ts
-├─ middleware/        # Command middleware
-│  └─ auth.ts
 ├─ .env                  # Environment variables
 ├─ harmonix.config.ts    # Framework configuration
 └─ package.json
