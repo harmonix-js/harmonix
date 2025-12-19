@@ -37,7 +37,7 @@
   "dependencies": {
     "@harmonix-js/cli": "workspace:*",
     "@parcel/watcher": "^2.5.1",
-    "c12": "^3.3.2",
+    "c12": "^3.3.3",
     "consola": "^3.4.2",
     "discord.js": "^14.25.1",
     "dot-prop": "^10.1.0",
@@ -49,7 +49,7 @@
     "pkg-types": "catalog:prod",
     "std-env": "^3.10.0",
     "tinyglobby": "catalog:prod",
-    "unctx": "^2.4.1"
+    "unctx": "^2.5.0"
   },
   "devDependencies": {
     "tsdown": "catalog:dev",
