@@ -8,7 +8,7 @@ onlyBuiltDependencies:
 
 catalogs:
   dev:
-    tsdown: ^0.18.2
+    tsdown: ^0.18.3
     typescript: ^5.9.3
   prod:
     citty: ^0.1.6
