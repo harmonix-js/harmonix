@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@harmonix-js/cli": "workspace:*",
-    "@parcel/watcher": "^2.5.4",
+    "@parcel/watcher": "^2.5.6",
     "c12": "^3.3.3",
     "consola": "^3.4.2",
     "discord.js": "^14.25.1",
@@ -45,7 +45,7 @@
     "jiti": "catalog:prod",
     "klona": "^2.0.6",
     "pathe": "catalog:prod",
-    "perfect-debounce": "^2.0.0",
+    "perfect-debounce": "^2.1.0",
     "pkg-types": "catalog:prod",
     "std-env": "^3.10.0",
     "tinyglobby": "catalog:prod",

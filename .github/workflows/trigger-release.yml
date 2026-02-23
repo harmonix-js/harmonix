@@ -24,7 +24,7 @@ jobs:
     if: github.repository_owner == 'harmonix-js'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
 
@@ -40,7 +40,7 @@ jobs:
 
       - name: Create Release Pull Request
         id: changesets
-        uses: changesets/action@v1.5.3
+        uses: changesets/action@v1.7.0
         with:
           version: pnpm ci:version
         env:
