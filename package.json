@@ -26,24 +26,24 @@
     "harmonix": "workspace:*"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.2",
-    "@changesets/cli": "^2.29.8",
-    "@commitlint/cli": "^20.3.1",
-    "@commitlint/config-conventional": "^20.3.1",
-    "@eslint/js": "^9.39.2",
-    "@types/node": "^24.10.9",
-    "@typescript/native-preview": "7.0.0-dev.20260118.1",
-    "eslint": "^9.39.2",
+    "@changesets/changelog-github": "^0.7.0",
+    "@changesets/cli": "^2.31.0",
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^24.13.2",
+    "@typescript/native-preview": "7.0.0-dev.20260622.1",
+    "eslint": "^9.39.4",
     "eslint-plugin-unicorn": "^62.0.0",
     "globals": "^16.5.0",
     "harmonix": "workspace:*",
     "husky": "^9.1.7",
-    "knip": "^5.82.0",
-    "lint-staged": "^16.2.7",
-    "prettier": "^3.8.0",
-    "tinyexec": "^1.0.2",
-    "turbo": "^2.7.5",
-    "typescript-eslint": "^8.53.0"
+    "knip": "^5.88.1",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.4",
+    "tinyexec": "^1.2.4",
+    "turbo": "^2.9.18",
+    "typescript-eslint": "^8.61.1"
   },
-  "packageManager": "pnpm@10.28.0"
+  "packageManager": "pnpm@10.34.4"
 }
